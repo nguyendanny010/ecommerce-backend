@@ -7,9 +7,6 @@ const mongoose = require('mongoose');
 //environment variable or contstants
 env.config()
 
-//mongodb connection
-//mongodb+srv://nguyendanny010:<password>@cluster0.sbbga.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
-
 mongoose.connect(
     `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.sbbga.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`,
     {

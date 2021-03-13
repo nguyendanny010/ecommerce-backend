@@ -14,7 +14,7 @@ exports.signup = (req, res) => {
     email,
     password,
     username: Math.random().toString(),
-    role: 'admin'
+    role: "admin",
   });
 
   _user.save((error, data) => {
@@ -32,7 +32,7 @@ exports.signin = (req, res) => {
   User.findOne({ email: req.body.email }).exec((error, user) => {
     if (error) return res.status(400).json({ error });
     if (user) {
-      if (user.authenticate(req.body.password) && user.role === 'admin') {
+      if (user.authenticate(req.body.password) && user.role === "admin") {
         const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
           expiresIn: "1h",
         });
@@ -49,18 +49,12 @@ exports.signin = (req, res) => {
           },
         });
       } else {
-        return res.status(403).json({
+        return res.status(400).json({
           message: "Invalid Password",
         });
       }
-    } else return res.status(400).json({ message: "Something went wrong" });
+    } else {
+      return res.status(400).json({ message: "Something went wrong" });
+    }
   });
 };
-
-exports.requireSignin = (req, res, next) => {
-    const token = req.headers.authorization.split(" ")[1];
-    const user = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = user;
-    next();
-    //jwt.decode()
-}

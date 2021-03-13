@@ -4,7 +4,7 @@ const { validateSignupRequest, validateSigninRequest, isRequestValidated} = requ
 const router = express.Router();
 
 router.post('/admin/signup', validateSignupRequest, isRequestValidated, signup);
-router.post('/admin/signin', validateSigninRequest, isRequestValidated, signup);
+router.post('/admin/signin', validateSigninRequest, isRequestValidated, signin);
 
 module.exports = router;
 
